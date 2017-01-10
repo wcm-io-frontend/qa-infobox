@@ -1,0 +1,55 @@
+.qa-infobox {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 16000;
+}
+
+.qa-content {
+  background-color: pink;
+  margin: 10px auto;
+  font: 12px Arial;
+  border-radius: 6px;
+}
+
+.qa-infobox tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.qa-infobox td {
+  padding: 2px;
+}
+.qa-infobox  td:first-of-type {
+   padding-right: 20px;
+   font-weight: bold;
+   text-align: right;
+}
+.qa-infobox tr:first-child td:first-child {
+  padding-right: 2px;
+}
+
+.qa-infobox-copytoclipboard {
+  margin-right: 20px;
+}
+
+.qa-infobox-clipboard {
+  border: 1px dotted silver;
+  padding: 4px;
+  background-color: #fee;
+  display: none;
+  width: 95%;
+  width: calc(100% - 10px);
+  min-height: 80px;
+}
+
+.qa-infobox-close,
+.qa-infobox-close:visited {
+  float: right;
+  text-decoration: none;
+  color: black;
+  border: 1px dotted #660;
+  background: transparent;
+}

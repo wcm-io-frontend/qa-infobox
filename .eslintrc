@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "eslint-config-pv/es6"
+  ],
+  "rules": {
+    "quote-props": [2, "as-needed", {
+        "keywords": true,
+        "unnecessary": true
+      }]
+  }
+}
