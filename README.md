@@ -1,7 +1,8 @@
 QA-Infobox
 ==========
 
-Displays a modalbox with minimal OS and browser info, plus optional info from JSON files. Developed as a tool to allow QA to determine what system they were testing. ES2015 native.
+Displays a modalbox with minimal OS and browser info, plus optional info from JSON files. Formats data with Atlassian confluence markaup.
+Developed as a tool to allow QA to determine what system they were testing. ES2015 native.
 
 ## Dependencies
 None

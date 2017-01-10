@@ -1,4 +1,4 @@
-.qa-infobox {
+.qa-m-infobox {
   position: fixed;
   top: 0;
   right: 0;
@@ -8,35 +8,37 @@
   z-index: 16000;
 }
 
-.qa-content {
-  background-color: pink;
+.qa-e-content {
+  background-color: #ffc0cb;
   margin: 10px auto;
   font: 12px Arial;
   border-radius: 6px;
 }
 
-.qa-infobox tr:nth-child(even) {
+.qa-m-infobox tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.qa-infobox td {
+.qa-m-infobox td {
   padding: 2px;
 }
-.qa-infobox  td:first-of-type {
-   padding-right: 20px;
-   font-weight: bold;
-   text-align: right;
+
+.qa-m-infobox td:first-of-type {
+  padding-right: 20px;
+  font-weight: bold;
+  text-align: right;
 }
-.qa-infobox tr:first-child td:first-child {
+
+.qa-m-infobox tr:first-child td:first-child {
   padding-right: 2px;
 }
 
-.qa-infobox-copytoclipboard {
+.qa-m-infobox__copytoclipboard {
   margin-right: 20px;
 }
 
-.qa-infobox-clipboard {
-  border: 1px dotted silver;
+.qa-m-infobox__clipboard {
+  border: 1px dotted #c0c0c0;
   padding: 4px;
   background-color: #fee;
   display: none;
@@ -45,11 +47,11 @@
   min-height: 80px;
 }
 
-.qa-infobox-close,
-.qa-infobox-close:visited {
+.qa-m-infobox__close,
+.qa-m-infobox__close:visited {
   float: right;
   text-decoration: none;
-  color: black;
+  color: #000;
   border: 1px dotted #660;
   background: transparent;
 }
