@@ -2,7 +2,11 @@
   "extends": [
     "eslint-config-pv/es6"
   ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
   "rules": {
+    "arrow-body-style": 0,
     "quote-props": [2, "as-needed", {
         "keywords": true,
         "unnecessary": true
