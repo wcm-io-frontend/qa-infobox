@@ -16,7 +16,7 @@ npm install --save qa-infobox
 ```
 import QaInfobox from "qa-infobox";
 
-QaInfobox.create(options);
+new QaInfobox(options);
 ```
 
 ## Options

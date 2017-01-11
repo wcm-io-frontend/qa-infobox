@@ -1,3 +1,5 @@
 import QaInfobox from "../lib/index";
 
-QaInfobox.create({});
+new QaInfobox({
+  jsonPath: ["/demo/data1.json", "/demo/data2.json"]
+});
