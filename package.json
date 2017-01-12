@@ -28,7 +28,8 @@
     "pretest": "npm run lint",
     "release": "npmpub",
     "test": "jest",
-    "watch": "jest --watch",
+    "watch:test": "jest --watch",
+    "watch:lint:js": "onchange **/*.js -i -- npm run lint:js",
     "start": "webpack-dev-server --display-error-details --open"
   },
   "main": "lib/index.js",
@@ -54,6 +55,7 @@
     "jest": "18.1.0",
     "npm-run-all": "4.0.0",
     "npmpub": "3.1.0",
+    "onchange": "3.2.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "remark-cli": "2.1.0",

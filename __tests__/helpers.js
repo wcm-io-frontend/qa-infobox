@@ -5,10 +5,11 @@
  * @return {void}
  */
 const pressKey = (code, modifiers = {}) => {
-  let keyEvent = document.createEventObject ?
-      document.createEventObject() : document.createEvent("Events");
+  const keyEvent = document.createEventObject
+    ? document.createEventObject()
+    : document.createEvent("Events");
 
-  if(keyEvent.initEvent){
+  if (keyEvent.initEvent) {
     keyEvent.initEvent("keydown", true, true);
   }
   keyEvent.keyCode = code;
@@ -16,8 +17,12 @@ const pressKey = (code, modifiers = {}) => {
   Object.keys(modifiers).forEach((k) => {
     keyEvent[k] = modifiers[k];
   });
-  document.dispatchEvent ? document.dispatchEvent(keyEvent) :
-                             document.fireEvent("onkeydown", keyEvent);
+  if (document.dispatchEvent) {
+    document.dispatchEvent(keyEvent);
+  }
+  else {
+    document.fireEvent("onkeydown", keyEvent);
+  }
 };
 
 /**
@@ -33,10 +38,10 @@ const click = (selector = "") => {
       event = new CustomEvent("click");
     }
     else {
-      event = document.createEvent('CustomEvent');
+      event = document.createEvent("CustomEvent");
       event.initCustomEvent("click", true, true);
     }
-    let el = document.querySelector(selector);
+    const el = document.querySelector(selector);
     if (el) {
       el.dispatchEvent(event);
     }
@@ -60,7 +65,7 @@ const sample = (haystack = "") => {
     }
   }
   return result;
-}
+};
 
 export {
   click,

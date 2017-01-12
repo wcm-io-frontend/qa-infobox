@@ -1,10 +1,9 @@
 "use strict";
 
 import QaInfobox from "../lib";
-import {pressKey, click, sample} from './helpers'
+import {pressKey, click, sample} from "./helpers";
 
 const className = "qa-m-infobox";
-const DELAY_TO_ALLOW_RENDERING = 500;
 const CLASSNAME_SELECTOR = `.${className}`;
 const CONTENT_SELECTOR = ".qa-e-content";
 const CLOSE_SELECTOR = "#js-qa-m-infobox__close";
@@ -12,7 +11,10 @@ const LABEL_SELECTOR = ".qa-e-label";
 const DATA_SELECTOR = ".qa-e-data";
 const JSON_PATH = ["anything_here_it's_mocked_anyway"];
 const DEFAULT_KEY = 81;
-const DEFAULT_KEY_MODIFIERS = { altKey: true, shiftKey: true };
+const DEFAULT_KEY_MODIFIERS = {
+  altKey: true,
+  shiftKey: true
+};
 const JSON_DATA = {
   a: 1,
   b: 2,
@@ -21,12 +23,13 @@ const JSON_DATA = {
 };
 // creates a mock for loadServerInfo to avoid loading server data
 const stubServerCall = (sut) => {
+  // eslint-disable-next-line prefer-arrow-callback
   sut.loadServerInfo = jest.fn(function () {
     sut.appendServerInfo(JSON_DATA);
     return Promise.resolve();
   });
   return sut;
-}
+};
 
 
 jest.useFakeTimers();
@@ -44,7 +47,7 @@ describe("basic tests", () => {
 
   it("instantiates", () => {
     expect(() => {
-      new QaInfobox({});
+      sut = new QaInfobox({});
     }).not.toThrow();
   });
 
@@ -100,6 +103,30 @@ describe("basic tests", () => {
       tdNode = row.querySelector(DATA_SELECTOR);
       expect(tdNode.textContent).toBe(String(customData[k]));
     });
+  });
+
+  it("should close the window with X button", () => {
+    sut = new QaInfobox({});
+    expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
+    sut.open();
+    jest.runAllTimers();
+    expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
+    expect(document.querySelector(CLASSNAME_SELECTOR).style.display).toBe("block");
+    click("#js-qa-m-infobox__close");
+    jest.runAllTimers();
+    expect(document.querySelector(CLASSNAME_SELECTOR).style.display).toBe("none");
+  });
+
+  it("should close the window by clicking around window", () => {
+    sut = new QaInfobox({});
+    expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
+    sut.open();
+    jest.runAllTimers();
+    expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
+    expect(document.querySelector(CLASSNAME_SELECTOR).style.display).toBe("block");
+    click(CLASSNAME_SELECTOR);
+    jest.runAllTimers();
+    expect(document.querySelector(CLASSNAME_SELECTOR).style.display).toBe("none");
   });
 
   it("should show data loaded from json", () => {
@@ -168,12 +195,12 @@ describe("basic tests", () => {
     sut.open();
     jest.runAllTimers();
     expect(sut.loadServerInfo.mock.calls.length).toBe(0);
-    let mainNode = document.querySelector(CLASSNAME_SELECTOR);
+    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
     expect(mainNode).not.toBe(null);
-    let contentNode = mainNode.querySelector(CONTENT_SELECTOR);
+    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
     expect(contentNode).not.toBe(null);
-    let selector = `tr[data-qa-serverinfo]`;
-    let rows = contentNode.querySelectorAll(selector);
+    const selector = "tr[data-qa-serverinfo]";
+    const rows = contentNode.querySelectorAll(selector);
     expect(rows.length).toBe(0);
   });
 
@@ -203,7 +230,7 @@ describe("basic tests", () => {
 
   it("should not open unless correct key shortcut is used", () => {
     const randomKey = () => sample("ABCDEFGHIJKLMNOPRSTUVWXYZ");
-    const trueOrFalse = () => sample([ true, false ]);
+    const trueOrFalse = () => sample([true, false]);
     sut = new QaInfobox({});
     expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
     pressKey(randomKey(), { altKey: trueOrFalse(), shiftKey: trueOrFalse() });
@@ -220,13 +247,11 @@ describe("basic tests", () => {
   });
 
   it("should open with custom key shortcut", () => {
-    let customKey;
-    let shiftKey;
-    let altKey;
-    let ctrlKey;
-    let keyCode;
+    // eslint-disable-next-line no-magic-numbers
+    const CUSTOM_KEYS = [74, 75, 77, 87, 93, 52];
+    let customKey, shiftKey, altKey, ctrlKey, keyCode;
 
-    keyCode = 78;
+    keyCode = sample(CUSTOM_KEYS);
     altKey = ctrlKey = shiftKey = false;
     customKey = String.fromCharCode(keyCode);
     sut = new QaInfobox({ customKey });
@@ -236,7 +261,7 @@ describe("basic tests", () => {
     expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
     sut.destroy();
 
-    keyCode = 73;
+    keyCode = sample(CUSTOM_KEYS);
     ctrlKey = shiftKey = false;
     altKey = true;
     customKey = `ALT-${String.fromCharCode(keyCode)}`;
@@ -247,7 +272,7 @@ describe("basic tests", () => {
     expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
     sut.destroy();
 
-    keyCode = 75;
+    keyCode = sample(CUSTOM_KEYS);
     ctrlKey = false;
     altKey = true;
     shiftKey = true;
@@ -259,7 +284,7 @@ describe("basic tests", () => {
     expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
     sut.destroy();
 
-    keyCode = 76;
+    keyCode = sample(CUSTOM_KEYS);
     ctrlKey = true;
     altKey = true;
     shiftKey = true;
