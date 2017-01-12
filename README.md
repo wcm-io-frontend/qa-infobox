@@ -20,11 +20,15 @@ new QaInfobox(options);
 ```
 
 ## Options
+The default fields being shown are: `["useragent", "os", "monitor", "browser", "url", "viewport"]`
+
 | option name | meaning | default |
 | ----------- | ------- | ------- |
 | className | string | CSS class which will be attached to topmost element. NOTE: if you change it the default CSS will no longer apply | qa-infobox |
 | customKey | string | key combination that fires opens and closes it, in format [MODIFIER-]*[KEY], where MODIFIER is either SHIFT, CTRL or ALT and KEY is a single string character (note that if there are more than one the last one will be used) | ALT-SHIFT-Q |
 | parent | where to attach the popup | document.body |
+| defaultFields | array of fieldnames | only show the default fields in the list (e.g. `["os", "browser"]`) |
+| ignoredFields | array of fieldnames | ignore fields you don't want in the popup, wherever they come from |
 | customData | object | an object with custom key/value pairs you can manually add. Example {code}QaInfobox.create({ customData: { dad: "Homer", mum: "Marge" }});{code} | none |
 | jsonPath | array of strings or single string |  list of paths of JSON files with key value pairs to be shown in popup | none |
 

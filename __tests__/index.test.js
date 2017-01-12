@@ -1,7 +1,7 @@
 "use strict";
 
 import QaInfobox from "../lib";
-import {pressKey, click, randomInt, sample} from "./helpers";
+import {pressKey, click, randomInt, sample, omit} from "./helpers";
 
 const className = "qa-m-infobox";
 const CLASSNAME_SELECTOR = `.${className}`;
@@ -21,13 +21,27 @@ const JSON_DATA = {
   c: 3,
   d: 4
 };
+const CUSTOM_DATA = {
+  C1: 1,
+  C2: 2,
+  C3: 3
+};
 const DEFAULT_FIELDS = ["useragent", "os", "monitor", "browser", "url", "viewport"];
+
+// a snippet that is repeated for every test
+const getContentNode = () => {
+  const mainNode = document.querySelector(CLASSNAME_SELECTOR);
+  expect(mainNode).not.toBe(null);
+  const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
+  expect(contentNode).not.toBe(null);
+  return contentNode;
+};
 
 // creates a mock for loadServerInfo to avoid loading server data
 const stubServerCall = (sut) => {
   // eslint-disable-next-line prefer-arrow-callback
   sut.loadServerInfo = jest.fn(function () {
-    sut.appendServerInfo(JSON_DATA);
+    sut.appendServerInfo(JSON.stringify(JSON_DATA));
     return Promise.resolve();
   });
   return sut;
@@ -65,10 +79,7 @@ describe("basic tests", () => {
     sut = new QaInfobox();
     sut.open();
     jest.runAllTimers();
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
 
     DEFAULT_FIELDS.forEach((label) => {
       const selector = `tr[data-qa-info=${label}]`;
@@ -81,29 +92,20 @@ describe("basic tests", () => {
   });
 
   it("should show data passed in", () => {
-    const customData = {
-      C1: 1,
-      C2: 2,
-      C3: 3
-    };
-
-    sut = new QaInfobox({ customData });
+    sut = new QaInfobox({ customData: CUSTOM_DATA });
     expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
     sut.open();
     jest.runAllTimers();
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(".qa-e-content");
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
 
-    Object.keys(customData).forEach((k) => {
+    Object.keys(CUSTOM_DATA).forEach((k) => {
       const selector = `tr[data-qa-info="${k.toLowerCase()}"]`;
       const row = contentNode.querySelector(selector);
       expect(row).not.toBe(null);
       let tdNode = row.querySelector(LABEL_SELECTOR);
       expect(tdNode.textContent).toEqual(k);
       tdNode = row.querySelector(DATA_SELECTOR);
-      expect(tdNode.textContent).toBe(String(customData[k]));
+      expect(tdNode.textContent).toBe(String(CUSTOM_DATA[k]));
     });
   });
 
@@ -176,10 +178,7 @@ describe("basic tests", () => {
     expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
     sut.open();
     jest.runAllTimers();
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
     const selector = "tr[data-qa-serverinfo]";
     const rows = contentNode.querySelectorAll(selector);
     expect(rows.length).toBe(Object.keys(JSON_DATA).length * jsonPath.length);
@@ -193,14 +192,11 @@ describe("basic tests", () => {
   it("should only display required fields if requiredFields options is passed", () => {
     const soManyFields = randomInt(DEFAULT_FIELDS.length - 2, 1);
     const requiredFields = sample(DEFAULT_FIELDS, soManyFields, true);
-    const nonrequiredFields = DEFAULT_FIELDS.filter((fieldName) => !requiredFields.includes(fieldName));
+    const ignoredFields = omit(DEFAULT_FIELDS, requiredFields);
     sut = new QaInfobox({ requiredFields });
     sut.open();
     jest.runAllTimers();
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
     requiredFields.forEach((label) => {
       const selector = `tr[data-qa-info=${label}]`;
       const row = contentNode.querySelector(selector);
@@ -209,9 +205,71 @@ describe("basic tests", () => {
       expect(data).not.toBe(null);
       expect(data.textContent).not.toBe(false);
     });
-    nonrequiredFields.forEach((label) => {
+    ignoredFields.forEach((label) => {
       const selector = `tr[data-qa-info=${label}]`;
       const row = contentNode.querySelector(selector);
+      expect(row).toBe(null);
+    });
+  });
+
+  it("should ignore fields if ignoredFields options is passed", () => {
+    const soManyFields = randomInt(DEFAULT_FIELDS.length - 2, 1);
+    const requiredFields = sample(DEFAULT_FIELDS, soManyFields, true);
+    const ignoredFields = omit(DEFAULT_FIELDS, requiredFields);
+    sut = new QaInfobox({ ignoredFields });
+    sut.open();
+    jest.runAllTimers();
+    const contentNode = getContentNode();
+    requiredFields.forEach((label) => {
+      const selector = `tr[data-qa-info=${label}]`;
+      const row = contentNode.querySelector(selector);
+      expect(row).not.toBe(null);
+      const data = row.querySelector(DATA_SELECTOR);
+      expect(data).not.toBe(null);
+      expect(data.textContent).not.toBe(false);
+    });
+    ignoredFields.forEach((label) => {
+      const selector = `tr[data-qa-info=${label}]`;
+      const row = contentNode.querySelector(selector);
+      expect(row).toBe(null);
+    });
+  });
+
+  it("should ignore fields also from json and customData if ignoredFields options is passed", () => {
+    const ignoredFields = sample(Object.keys(CUSTOM_DATA))
+      .concat(sample(Object.keys(JSON_DATA)));
+    const allowedCustomFields = omit(Object.keys(CUSTOM_DATA), ignoredFields);
+    const allowedJSONFields = omit(Object.keys(JSON_DATA), ignoredFields);
+    sut = new QaInfobox({ ignoredFields, customData: CUSTOM_DATA, jsonPath: JSON_PATH });
+    stubServerCall(sut);
+    sut.open();
+    jest.runAllTimers();
+    const contentNode = getContentNode();
+    allowedCustomFields.forEach((label) => {
+      const selector = `tr[data-qa-info="${label.toLowerCase()}"]`;
+      const row = contentNode.querySelector(selector);
+      expect(row).not.toBe(null);
+      let tdNode = row.querySelector(LABEL_SELECTOR);
+      expect(tdNode.textContent).toEqual(label);
+      tdNode = row.querySelector(DATA_SELECTOR);
+      expect(tdNode.textContent).toBe(String(CUSTOM_DATA[label]));
+    });
+    allowedJSONFields.forEach((label) => {
+      const selector = `tr[data-qa-serverinfo="${label.toLowerCase()}"]`;
+      const row = contentNode.querySelector(selector);
+      expect(row).not.toBe(null);
+      let tdNode = row.querySelector(LABEL_SELECTOR);
+      expect(tdNode.textContent).toEqual(label);
+      tdNode = row.querySelector(DATA_SELECTOR);
+      expect(tdNode.textContent).toBe(String(JSON_DATA[label]));
+    });
+    ignoredFields.forEach((label) => {
+      let selector, row;
+      selector = `tr[data-qa-info="${label.toLowerCase()}"]`;
+      row = contentNode.querySelector(selector);
+      expect(row).toBe(null);
+      selector = `tr[data-qa-serverinfo="${label.toLowerCase()}"]`;
+      row = contentNode.querySelector(selector);
       expect(row).toBe(null);
     });
   });
@@ -223,10 +281,7 @@ describe("basic tests", () => {
     expect(document.querySelector(CLASSNAME_SELECTOR)).toBe(null);
     sut.open();
     jest.runAllTimers();
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
     const selector = "tr[data-qa-serverinfo]";
     const rows = contentNode.querySelectorAll(selector);
     expect(rows.length).toBe(Object.keys(JSON_DATA).length * jsonPath.length);
@@ -261,10 +316,7 @@ describe("basic tests", () => {
     sut.open();
     jest.runAllTimers();
     expect(sut.loadServerInfo.mock.calls.length).toBe(0);
-    const mainNode = document.querySelector(CLASSNAME_SELECTOR);
-    expect(mainNode).not.toBe(null);
-    const contentNode = mainNode.querySelector(CONTENT_SELECTOR);
-    expect(contentNode).not.toBe(null);
+    const contentNode = getContentNode();
     const selector = "tr[data-qa-serverinfo]";
     const rows = contentNode.querySelectorAll(selector);
     expect(rows.length).toBe(0);
@@ -313,7 +365,7 @@ describe("basic tests", () => {
   });
 
   it("should open with custom key shortcut", () => {
-    // eslint-disable no-magic-numbers
+    /* eslint-disable no-magic-numbers, lines-around-comment */
     let customKey, shiftKey, altKey, ctrlKey, keyCode;
 
     keyCode = 78;
@@ -359,6 +411,6 @@ describe("basic tests", () => {
     pressKey(keyCode, { altKey, shiftKey, ctrlKey });
     jest.runAllTimers();
     expect(document.querySelector(CLASSNAME_SELECTOR)).not.toBe(null);
-    // eslint-enable no-magic-numbers
+    /* eslint-enable */
   });
 });
