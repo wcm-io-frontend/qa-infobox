@@ -42,6 +42,8 @@ The default fields being shown are: `["useragent", "os", "monitor", "browser", "
 | customData | object | an object with custom key/value pairs you can manually add. Example {code}QaInfobox.create({ customData: { dad: "Homer", mum: "Marge" }});{code} | none |
 | jsonPath | array of strings or single string |  list of paths of JSON files with key value pairs to be shown in popup | none |
 
+## More detailed platform info
+OS X/Browser detection is quite complex; to avoid dependencies qa-infobox only detects the most common. If you want more detailed information, it is suggested you use the `platform` package to generate a `customData` object. The demo shows an example of that.
 
 
 ## Demo
