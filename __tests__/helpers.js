@@ -113,10 +113,21 @@ const sample = (haystack = "", soMany = 1, unique = false) => {
   return result;
 };
 
+
+/**
+ * returns a string made out of upper and lower case alphabet letters
+ * @param  {number} length length of string, default a random int between 10 and 3
+ * @return {string}
+ */
+const randomString = (length = randomInt(10, 3)) => { // eslint-disable-line no-magic-numbers
+  return sample("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", length);
+};
+
 export {
   click,
   omit,
   pressKey,
   randomInt,
+  randomString,
   sample
 };
