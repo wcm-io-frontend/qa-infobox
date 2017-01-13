@@ -5,7 +5,7 @@ const filename = "bundle.js";
 const port = 8080;
 
 module.exports = {
-  entry: path.join(APP_PATH, "index.js"),
+  entry: ["babel-polyfill", path.join(APP_PATH, "index.js")],
   externals,
   output: {
     path: APP_PATH,

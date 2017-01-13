@@ -30,7 +30,8 @@
     "test": "jest",
     "watch:test": "jest --watch",
     "watch:lint:js": "onchange **/*.js -i -- npm run lint:js",
-    "start": "webpack-dev-server --display-error-details --open"
+    "start": "webpack-dev-server --open",
+    "webpack": "webpack --display-error-details"
   },
   "main": "lib/index.js",
   "keywords": [
