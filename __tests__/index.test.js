@@ -188,7 +188,7 @@ describe("basic tests", () => {
     });
   });
 
-  it.only("creates component with default ID unless a custom one is passed", () => {
+  it("creates component with default ID unless a custom one is passed", () => {
     const id = randomString();
     const ID_SELECTOR = `#${id}`;
     sut = new QaInfobox();

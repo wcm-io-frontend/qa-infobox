@@ -1,5 +1,7 @@
-import QaInfobox from "../lib/index";
 import platform from "platform";
+
+import QaInfobox from "../lib/index";
+
 
 // example custom data
 const customData = {
@@ -8,7 +10,6 @@ const customData = {
   "better os": platform.os
 };
 
-console.log(customData)
 // we ignore some comedy fields (they are in the json files)
 const ignoredFields = ["cocktails", "good vibes"];
 
