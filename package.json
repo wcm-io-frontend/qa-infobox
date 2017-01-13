@@ -1,6 +1,6 @@
 {
   "name": "qa-infobox",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A modal box which displays browser / OS info and additionally (build) data from JSON files",
   "author": {
     "name": "pro!vision GmbH",
