@@ -1,4 +1,4 @@
-"use strict";
+
 
 import QaInfobox from "../lib";
 import {pressKey, click, randomInt, sample, omit, randomString} from "./helpers";
