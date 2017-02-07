@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "eslint-config-pv/es6"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "globals": {
+    "jest": false
+  },
+  "rules": {
+    "arrow-body-style": 0,
+    "object-property-newline": [2, { "allowMultiplePropertiesPerLine": true }],
+    "quote-props": [2, "as-needed", {
+        "keywords": true,
+        "unnecessary": true
+      }]
+  }
+}
