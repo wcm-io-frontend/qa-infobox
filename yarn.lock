@@ -1478,9 +1478,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-pv@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.3.tgz#1998c4217f67caa009d3db87ebd7b5a1ff97da10"
+eslint-config-pv@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.5.tgz#d6b26ad2f9e704e78fd9852cb3014d541c2d19a7"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
@@ -3098,8 +3098,8 @@ marked-terminal@^1.6.2:
     node-emoji "^1.4.1"
 
 marked@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
+  version "0.3.19"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
 
 mdast-comment-marker@^1.0.0:
   version "1.0.1"
