@@ -1478,9 +1478,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-pv@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.3.tgz#1998c4217f67caa009d3db87ebd7b5a1ff97da10"
+eslint-config-pv@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.5.tgz#d6b26ad2f9e704e78fd9852cb3014d541c2d19a7"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
@@ -1690,8 +1690,8 @@ express@^4.13.3:
     vary "~1.1.0"
 
 extend@3, extend@^3.0.0, extend@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.0.tgz#5a474353b9f3353ddd8176dfd37b91c83a46f1d4"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
 
 extglob@^0.3.1:
   version "0.3.2"
