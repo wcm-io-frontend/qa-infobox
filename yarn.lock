@@ -1478,9 +1478,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-pv@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.3.tgz#1998c4217f67caa009d3db87ebd7b5a1ff97da10"
+eslint-config-pv@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.5.tgz#d6b26ad2f9e704e78fd9852cb3014d541c2d19a7"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
@@ -4542,8 +4542,8 @@ stringify-entities@^1.0.1:
     is-hexadecimal "^1.0.0"
 
 stringstream@~0.0.4:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/stringstream/-/stringstream-0.0.5.tgz#4e484cd4de5a0bbbee18e46307710a8a81621878"
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/stringstream/-/stringstream-0.0.6.tgz#7880225b0d4ad10e30927d167a1d6f2fd3b33a72"
 
 strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
