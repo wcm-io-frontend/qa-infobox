@@ -1541,9 +1541,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-pv@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.5.tgz#d6b26ad2f9e704e78fd9852cb3014d541c2d19a7"
+eslint-config-pv@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-2.2.1.tgz#9e21ccadaa0fd73974f97d48cfdbea93570f4670"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
