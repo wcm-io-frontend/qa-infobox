@@ -1478,9 +1478,9 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-pv@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.3.tgz#1998c4217f67caa009d3db87ebd7b5a1ff97da10"
+eslint-config-pv@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/eslint-config-pv/-/eslint-config-pv-1.0.5.tgz#d6b26ad2f9e704e78fd9852cb3014d541c2d19a7"
 
 eslint-import-resolver-node@^0.2.0:
   version "0.2.3"
@@ -4775,8 +4775,8 @@ to-vfile@^2.0.0:
     x-is-string "^0.1.0"
 
 tough-cookie@^2.3.1, tough-cookie@~2.3.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.2.tgz#f081f76e4c85720e6c37a5faced737150d84072a"
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.4.tgz#ec60cee38ac675063ffc97a5c18970578ee83655"
   dependencies:
     punycode "^1.4.1"
 
